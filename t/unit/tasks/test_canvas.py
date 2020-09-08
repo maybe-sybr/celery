@@ -633,7 +633,6 @@ class test_group(CanvasCase):
         x['args'] = None
         assert group.from_dict(dict(x))
 
-    @pytest.mark.xfail(reason="#6341")
     def test_from_dict_deep_deserialize(self):
         original_group = group([self.add.s(1, 2)] * 42)
         serialized_group = json.loads(json.dumps(original_group))
@@ -641,7 +640,6 @@ class test_group(CanvasCase):
         for ds_task in deserialized_group.tasks:
             assert isinstance(ds_task, Signature)
 
-    @pytest.mark.xfail(reason="#6341")
     def test_from_dict_deeper_deserialize(self):
         inner_group = group([self.add.s(1, 2)] * 42)
         outer_group = group([inner_group] * 42)
@@ -986,7 +984,6 @@ class test_chord(CanvasCase):
             assert isinstance(task, Signature)
         assert isinstance(deserialized_chord.body, Signature)
 
-    @pytest.mark.xfail(reason="#6341")
     def test_from_dict_deep_deserialize_group(self):
         header = body = group([self.add.s(1, 2)]* 42)
         original_chord = chord(header=header, body=body)
@@ -1001,7 +998,6 @@ class test_chord(CanvasCase):
         for task in deserialized_chord.body.tasks:
             assert isinstance(task, Signature)
 
-    @pytest.mark.xfail(reason="#6341")
     def test_from_dict_deeper_deserialize_group(self):
         inner_group = group([self.add.s(1, 2)] * 42)
         header = body = group([inner_group] * 42)
