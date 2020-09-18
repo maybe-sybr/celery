@@ -227,8 +227,7 @@ class Signature(dict):
         options = options if options else {}
         if self.immutable and not force:
             return (self.args, self.kwargs,
-                    dict(self.options,
-                         **options) if options else self.options)
+                    dict(options, **self.options) if options else self.options)
         return (tuple(args) + tuple(self.args) if args else self.args,
                 dict(self.kwargs, **kwargs) if kwargs else self.kwargs,
                 dict(self.options, **options) if options else self.options)
@@ -286,7 +285,7 @@ class Signature(dict):
             opts['parent_id'] = parent_id
         if 'reply_to' not in opts:
             opts['reply_to'] = self.app.oid
-        if group_id:
+        if group_id and "group_id" not in opts:
             opts['group_id'] = group_id
         if chord:
             opts['chord'] = chord
