@@ -69,6 +69,10 @@ jobs:
     env: TOXENV=pypy3-unit
     stage: test
 
+  - python: pypy3.6-7.3.1
+    env: TOXENV=pypy3-integration-rabbitmq
+    stage: integration
+
 before_install:
     - sudo install --directory --owner=travis /var/log/celery /var/run/celery
     - sudo apt install libcurl4-openssl-dev libssl-dev gnutls-dev httping expect
